@@ -8,10 +8,11 @@ import com.listswitcheroo.main.Objects.ID;
 
 import java.awt.*;
 import java.util.HashSet;
+import java.util.LinkedList;
 
 public class Handler
 {
-    public HashSet<GameObject> objects = new HashSet<>();
+    public LinkedList<GameObject> objects = new LinkedList<>();
 
     public void tick()
     {
@@ -33,6 +34,15 @@ public class Handler
     public void remove(GameObject gameObject)
     {
         this.objects.remove(gameObject);
+    }
+
+    public GameObject get(String className)
+    {
+        for (GameObject go : objects)
+            if (go.getClass().toString().contains(className))
+                return go;
+
+        return null;
     }
 
     public void clear(ID id)

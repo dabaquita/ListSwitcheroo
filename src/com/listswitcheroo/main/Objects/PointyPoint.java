@@ -16,7 +16,8 @@ public class PointyPoint extends GameObject
     }
 
     @Override
-    public void tick() {
+    public void tick()
+    {
 
     }
 

@@ -12,11 +12,13 @@ public class Spawner
 {
     private Handler handler;
     private Random rand;
+    private int timeKeep;
 
     public Spawner(Handler handler)
     {
         this.handler = handler;
         rand = new Random();
+        timeKeep = 0;
 
         // Initial spawn of the first linked list
         handler.add(new ListyList(150, 150, ID.HappyList));
@@ -24,6 +26,15 @@ public class Spawner
 
     public void tick()
     {
+        timeKeep++;
+        System.out.println("Timekeep: " + timeKeep);
 
+        if (timeKeep >= 100)
+        {
+            // TODO: Let's add another node to the linked list
+            ListyList temp = (ListyList) handler.get("ListyList");
+            temp.increaseSize();
+            timeKeep = 0;
+        }
     }
 }

@@ -10,7 +10,7 @@ import java.awt.*;
 
 public class Node extends GameObject
 {
-    private Node next;
+    protected Node next;
 
     public Node(float x, float y, ID id)
     {
@@ -20,12 +20,20 @@ public class Node extends GameObject
         velY = 5;
     }
 
-    public void insert(Node next)
+    public Node (float x, float y, float velX, float velY, ID id)
+    {
+        super(x, y, id);
+
+        this.velX = velX;
+        this.velY = velY;
+    }
+
+    public Node tailInsert(Node next)
     {
         Node temp = this;
 
         if (next == null)
-            return;
+            return this;
 
         while (temp.next != null)
         {
@@ -33,6 +41,7 @@ public class Node extends GameObject
         }
 
         temp.next = next;
+        return temp.next;
     }
 
     @Override
@@ -56,14 +65,20 @@ public class Node extends GameObject
     {
         // If we have head node, then it
         // must have the smiley face texture
-        if (getId().equals(ID.HeadNode))
+        if (getId().equals(ID.HappyList))
+        {
+            g.setColor(Color.GREEN);
+            g.fillOval((int) x, (int) y, 32, 32);
+        }
+        else if (getId().equals(ID.MildList))
+        {
+            g.setColor(Color.ORANGE);
+            g.fillOval((int) x, (int) y, 32, 32);
+        }
+        else
         {
             g.setColor(Color.RED);
             g.fillOval((int) x, (int) y, 32, 32);
-            return;
         }
-
-        g.setColor(Color.GREEN);
-        g.fillOval((int) x, (int) y, 16, 16);
     }
 }
