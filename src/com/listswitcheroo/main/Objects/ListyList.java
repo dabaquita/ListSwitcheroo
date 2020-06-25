@@ -63,6 +63,7 @@ public class ListyList extends GameObject
     // thus changing the colors they render
     private void changeID(ID id)
     {
+        System.out.println("Changing the id to: " + id.toString());
         Node temp = head;
 
         while (temp != null)
@@ -77,7 +78,7 @@ public class ListyList extends GameObject
     {
         Node temp = head;
 
-        if (size >= 3)
+        if (size == 3)
             changeID(ID.MildList);
         else if (size >= 4)
             changeID(ID.LonelyList);
