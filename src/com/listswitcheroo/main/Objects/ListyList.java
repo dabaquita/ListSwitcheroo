@@ -23,25 +23,64 @@ public class ListyList extends GameObject
 
     public void increaseSize()
     {
-        tail = tail.tailInsert(new Node(tail.getX() - 20, tail.getY() - 20, tail.getVelX(), tail.getVelY(), ID.HappyList));
+        float x = tail.getX(), y = tail.getY(), velX = tail.getVelX(), velY = tail.getVelY();
+
+        // Direction: downward-right
+        if (velX > 0 && velY > 0)
+        {
+            x -= 20;
+            y -= 20;
+        }
+        // Direction: upward-left
+        else if (velX < 0 && velY < 0)
+        {
+            x += 20;
+            y += 20;
+        }
+        // Direction: upward-right
+        else if (velX > 0 && velY < 0)
+        {
+            x -= 20;
+            y += 20;
+        }
+        // Direction: downward-left
+        else if (velX < 0 && velY > 0)
+        {
+            x += 20;
+            y -= 20;
+        }
+        // MAYBE - handle edge cases here?
+        else
+        {
+            System.out.println("We have reached an edge case! Please fix it up in ListyList.java");
+        }
+
+        tail = tail.tailInsert(new Node(x, y, velX, velY, ID.HappyList));
         size++;
+    }
+
+    // Changes the individual ids of the linked list
+    // thus changing the colors they render
+    private void changeID(ID id)
+    {
+        Node temp = head;
+
+        while (temp != null)
+        {
+            temp.setId(id);
+            temp = temp.next;
+        }
     }
 
     @Override
     public void tick()
     {
         Node temp = head;
-        // TODO: Tick the linked list...
-        // Need to have it so that if it reaches 5 nodes,
-        // the linked list splits into 3 different linked lists
-        // The head node, middle node, and tail node each becoming their own
 
-        // Now let's set the ID's so that we can render
-        // a new graphic for when the list gets lonelier
         if (size >= 3)
-            this.setId(ID.MildList);
+            changeID(ID.MildList);
         else if (size >= 4)
-            this.setId(ID.LonelyList);
+            changeID(ID.LonelyList);
 
         while (temp != null)
         {

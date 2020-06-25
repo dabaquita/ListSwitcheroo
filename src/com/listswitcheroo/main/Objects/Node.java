@@ -28,6 +28,7 @@ public class Node extends GameObject
         this.velY = velY;
     }
 
+    // Returns the new tail of the linked list
     public Node tailInsert(Node next)
     {
         Node temp = this;
@@ -47,8 +48,6 @@ public class Node extends GameObject
     @Override
     public void tick()
     {
-        Node temp = this;
-
         // TODO: Implement a way to tick the linked list
 
         x += velX;
@@ -75,7 +74,7 @@ public class Node extends GameObject
             g.setColor(Color.ORANGE);
             g.fillOval((int) x, (int) y, 32, 32);
         }
-        else
+        else if (getId().equals(ID.LonelyList))
         {
             g.setColor(Color.RED);
             g.fillOval((int) x, (int) y, 32, 32);
