@@ -31,7 +31,6 @@ public class Spawner
 
         if (timeKeep >= 100)
         {
-            // TODO: Let's add another node to the linked list
             ListyList temp = (ListyList) handler.get("ListyList");
             temp.increaseSize();
             timeKeep = 0;
