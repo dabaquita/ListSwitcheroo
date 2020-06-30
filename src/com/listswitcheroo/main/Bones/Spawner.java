@@ -27,11 +27,17 @@ public class Spawner
     public void tick()
     {
         timeKeep++;
-        System.out.println("Timekeep: " + timeKeep);
+        //System.out.println("Timekeep: " + timeKeep);
 
         if (timeKeep >= 100)
         {
             ListyList temp = (ListyList) handler.get("ListyList");
+
+            if (temp.getSize() == temp.getMaxSize())
+            {
+                return;
+            }
+
             temp.increaseSize();
             timeKeep = 0;
         }

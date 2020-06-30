@@ -48,8 +48,6 @@ public class Node extends GameObject
     @Override
     public void tick()
     {
-        // TODO: Implement a way to tick the linked list
-
         x += velX;
         y += velY;
 

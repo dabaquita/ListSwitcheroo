@@ -36,7 +36,7 @@ public class Game extends Canvas implements Runnable
 
         // TODO: Maybe add a menu?
 
-        // TODO: Add listeners (make Handler and KeyInput classes)
+        // TODO: Add listeners (make KeyInput classes)
 
         // Window
         new Window(WIDTH, HEIGHT, "List Switcheroo", this);
