@@ -4,6 +4,7 @@ package com.listswitcheroo.main;
 // 6/8/20
 
 import com.listswitcheroo.main.Bones.Handler;
+import com.listswitcheroo.main.Bones.KeyInput;
 import com.listswitcheroo.main.Bones.Spawner;
 
 import java.awt.*;
@@ -32,14 +33,11 @@ public class Game extends Canvas implements Runnable
 
     Game()
     {
-        handler = new Handler();
-
-        // TODO: Maybe add a menu?
-
-        // TODO: Add listeners (make KeyInput classes)
-
         // Window
         new Window(WIDTH, HEIGHT, "List Switcheroo", this);
+
+        handler = new Handler();
+        this.addKeyListener(new KeyInput(handler));
 
         // Spawner
         spawner = new Spawner(handler);

@@ -2,8 +2,7 @@ package com.listswitcheroo.main.Objects;
 
 public enum ID
 {
-    PointLeft(),
-    PointRight(),
+    Pointer(),
 
     HappyList(),
     MildList(),

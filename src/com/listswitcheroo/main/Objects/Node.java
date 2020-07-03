@@ -51,9 +51,9 @@ public class Node extends GameObject
         x += velX;
         y += velY;
 
-        if (y <= 0 || y >= Game.HEIGHT - 32)
+        if (y <= 0 || y >= Game.HEIGHT - 64)
             velY *= -1;
-        if (x <= 0 || x >= Game.WIDTH - 16)
+        if (x <= 0 || x >= Game.WIDTH - 40)
             velX *= -1;
     }
 
@@ -65,17 +65,17 @@ public class Node extends GameObject
         if (getId().equals(ID.HappyList))
         {
             g.setColor(Color.GREEN);
-            g.fillOval((int) x, (int) y, 32, 32);
+            g.fillOval((int) x, (int) y, 48, 48);
         }
         else if (getId().equals(ID.MildList))
         {
             g.setColor(Color.ORANGE);
-            g.fillOval((int) x, (int) y, 32, 32);
+            g.fillOval((int) x, (int) y, 48, 48);
         }
         else if (getId().equals(ID.LonelyList))
         {
             g.setColor(Color.RED);
-            g.fillOval((int) x, (int) y, 32, 32);
+            g.fillOval((int) x, (int) y, 48, 48);
         }
     }
 }

@@ -5,11 +5,16 @@ package com.listswitcheroo.main.Objects;
 // The actual linked list that will
 // move around the screen and such
 
+import com.listswitcheroo.main.Game;
+
 import java.awt.*;
 
 public class ListyList extends GameObject
 {
     private Node head, tail;
+
+    // Note: size and maxSize refer to the number of nodes
+    // NOT the total number of nodes and pointers
     private int size, maxSize;
 
     public ListyList(float x, float y, ID id)
@@ -45,43 +50,51 @@ public class ListyList extends GameObject
         // Direction: downward-right
         if (velX > 0 && velY > 0)
         {
-            x -= 20;
-            y -= 20;
+            x -= 40;
+            y -= 40;
         }
         // Direction: upward-left
         else if (velX < 0 && velY < 0)
         {
-            x += 20;
-            y += 20;
+            x += 40;
+            y += 40;
         }
         // Direction: upward-right
         else if (velX > 0 && velY < 0)
         {
-            x -= 20;
-            y += 20;
+            x -= 40;
+            y += 40;
         }
         // Direction: downward-left
         else if (velX < 0 && velY > 0)
         {
-            x += 20;
-            y -= 20;
+            x += 40;
+            y -= 40;
         }
-        // MAYBE - handle edge cases here?
-        else
+
+        // Handling edge cases when the node is spawned
+        // outside of the game window
+        if (x > Game.WIDTH || x < 0 || y > Game.HEIGHT || y < 0)
         {
             System.err.println("We have reached an edge case! Please fix it up in ListyList.java");
+            return;
         }
 
         if (tail.getId().toString().contains("List"))
         {
-            tail = tail.tailInsert(new Pointer(x, y, velX, velY, ID.PointLeft));
+            tail = tail.tailInsert(new Pointer(x, y, velX, velY, ID.Pointer));
         }
         else
         {
             tail = tail.tailInsert(new Node(x, y, velX, velY, ID.HappyList));
+            size++;
         }
+    }
 
-        size++;
+    // Reverse the linked list!!
+    public void reverse()
+    {
+
     }
 
     @Override
@@ -103,10 +116,17 @@ public class ListyList extends GameObject
 
         while (temp != null)
         {
-//            if (size == 3)
-//                temp.setId(ID.MildList);
-//            else if (size >= 4)
-//                temp.setId(ID.LonelyList);
+            if (temp.getId().equals(ID.Pointer))
+            {
+                temp.render(g);
+                temp = temp.next;
+                continue;
+            }
+
+            if (size == 3)
+                temp.setId(ID.MildList);
+            else if (size >= 4)
+                temp.setId(ID.LonelyList);
 
             temp.render(g);
             temp = temp.next;

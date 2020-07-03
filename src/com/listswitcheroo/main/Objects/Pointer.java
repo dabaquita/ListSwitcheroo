@@ -11,16 +11,7 @@ import java.io.IOException;
 public class Pointer extends Node
 {
     protected Node next;
-    private BufferedImage greenPoint, orangePoint, redPoint;
-
-    public Pointer(float x, float y, ID id)
-    {
-        super(x, y, id);
-        initImages();
-
-        velX = 5;
-        velY = 5;
-    }
+    private BufferedImage pointerImg;
 
     public Pointer (float x, float y, float velX, float velY, ID id)
     {
@@ -35,9 +26,7 @@ public class Pointer extends Node
     {
         try
         {
-            greenPoint = ImageIO.read(new File("src/com/listswitcheroo/main/GreenPoint.png"));
-            orangePoint = ImageIO.read(new File("src/com/listswitcheroo/main/OrangePoint.png"));
-            redPoint = ImageIO.read(new File("src/com/listswitcheroo/main/RedPoint.png"));
+            pointerImg = ImageIO.read(new File("src/com/listswitcheroo/main/Pointer.png"));
         }
         catch (IOException e)
         {
@@ -46,37 +35,23 @@ public class Pointer extends Node
     }
 
     @Override
-    public void tick()
-    {
-        x += velX;
-        y += velY;
-
-        if (y <= 0 || y >= Game.HEIGHT - 32)
-            velY *= -1;
-        if (x <= 0 || x >= Game.WIDTH - 16)
-            velX *= -1;
-    }
-
-    @Override
     public void render(Graphics g)
     {
-        // If we have head Pointer, then it
-        // must have the smiley face texture
-        if (getId().equals(ID.PointLeft))
+        if (velX > 0 && velY > 0)
         {
-            g.drawImage(greenPoint, (int) x, (int) y,  null);
-            //g.setColor(Color.GREEN);
-            //g.fillOval((int) x, (int) y, 32, 32);
+            g.drawImage(rotateImageByDegrees(pointerImg, 90), (int) x, (int) y,  null);
         }
-        else if (getId().equals(ID.MildList))
+        else if (velX > 0 && velY < 0)
         {
-            g.setColor(Color.ORANGE);
-            g.fillOval((int) x, (int) y, 32, 32);
+            g.drawImage(pointerImg, (int) x, (int) y,  null);
         }
-        else if (getId().equals(ID.LonelyList))
+        else if (velX < 0 && velY < 0)
         {
-            g.setColor(Color.RED);
-            g.fillOval((int) x, (int) y, 32, 32);
+            g.drawImage(rotateImageByDegrees(pointerImg, 270), (int) x, (int) y,  null);
+        }
+        else if (velX < 0 && velY > 0)
+        {
+            g.drawImage(rotateImageByDegrees(pointerImg, 180), (int) x, (int) y,  null);
         }
     }
 }
