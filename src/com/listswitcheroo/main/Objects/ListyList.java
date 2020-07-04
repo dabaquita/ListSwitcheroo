@@ -8,6 +8,9 @@ package com.listswitcheroo.main.Objects;
 import com.listswitcheroo.main.Game;
 
 import java.awt.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class ListyList extends GameObject
 {
@@ -46,30 +49,31 @@ public class ListyList extends GameObject
         }
 
         float x = tail.getX(), y = tail.getY(), velX = tail.getVelX(), velY = tail.getVelY();
+        float offset = 40;
 
         // Direction: downward-right
         if (velX > 0 && velY > 0)
         {
-            x -= 40;
-            y -= 40;
+            x -= offset;
+            y -= offset;
         }
         // Direction: upward-left
         else if (velX < 0 && velY < 0)
         {
-            x += 40;
-            y += 40;
+            x += offset;
+            y += offset;
         }
         // Direction: upward-right
         else if (velX > 0 && velY < 0)
         {
-            x -= 40;
-            y += 40;
+            x -= offset;
+            y += offset;
         }
         // Direction: downward-left
         else if (velX < 0 && velY > 0)
         {
-            x += 40;
-            y -= 40;
+            x += offset;
+            y -= offset;
         }
 
         // Handling edge cases when the node is spawned
@@ -94,7 +98,24 @@ public class ListyList extends GameObject
     // Reverse the linked list!!
     public void reverse()
     {
+        Node temp = head, prev = null, next;
 
+        // Reverses the linked list
+        while (temp != null)
+        {
+            // Reverses the animation
+            temp.reverse();
+
+            next = temp.next;
+            temp.next = prev;
+            prev = temp;
+            temp = next;
+        }
+
+        // Finally switch the pointers
+        temp = tail;
+        tail = head;
+        head = temp;
     }
 
     @Override

@@ -45,6 +45,13 @@ public class Node extends GameObject
         return temp.next;
     }
 
+    // Reverses the movement of the node
+    public void reverse()
+    {
+        velX *= -1;
+        velY *= -1;
+    }
+
     @Override
     public void tick()
     {
