@@ -6,7 +6,5 @@ public enum ID
 
     HappyList(),
     MildList(),
-    SadList(),
-
     LonelyList()
 }

@@ -1,16 +1,21 @@
 package com.listswitcheroo.main.Objects;
 
 // Denielle Abaquita
-// 6/8/20
+// 7/3/20
 // Each "body part" of the linked list
 
 import com.listswitcheroo.main.Game;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
 
 public class Node extends GameObject
 {
     protected Node next;
+    protected float velYPrev, velXPrev;
 
     public Node(float x, float y, ID id)
     {
@@ -46,8 +51,26 @@ public class Node extends GameObject
     }
 
     // Reverses the movement of the node
-    public void reverse()
+    public void reverse(int pointerDelay)
     {
+        // We need to delay the reversal of the
+        // pointer to show a steady reversal overall
+        if (id.toString().contains("Pointer"))
+        {
+            Timer timer = new Timer((750 * pointerDelay) / 2, new ActionListener()
+            {
+                @Override
+                public void actionPerformed(ActionEvent arg0)
+                {
+                    velX *= -1;
+                    velY *= -1;
+                }
+            });
+            timer.setRepeats(false);
+            timer.start();
+            return;
+        }
+
         velX *= -1;
         velY *= -1;
     }

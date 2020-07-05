@@ -1,7 +1,7 @@
 package com.listswitcheroo.main;
 
 // Denielle Abaquita
-// 6/8/20
+// 7/3/20
 
 import com.listswitcheroo.main.Bones.Handler;
 import com.listswitcheroo.main.Bones.KeyInput;
@@ -18,6 +18,7 @@ public class Game extends Canvas implements Runnable
 
     private Thread thread;
     private boolean running;
+    private boolean performReverse;     // pauses the game
 
     private Handler handler;
     private Spawner spawner;
@@ -37,7 +38,7 @@ public class Game extends Canvas implements Runnable
         new Window(WIDTH, HEIGHT, "List Switcheroo", this);
 
         handler = new Handler();
-        this.addKeyListener(new KeyInput(handler));
+        this.addKeyListener(new KeyInput(handler, this));
 
         // Spawner
         spawner = new Spawner(handler);
@@ -72,6 +73,7 @@ public class Game extends Canvas implements Runnable
         this.requestFocus();
 
         // Famous Game Loop - credited to someone unknown
+        // but referenced by RealTutsGML on YouTube
         long lastTime = System.nanoTime();
         double amountOfTicks = 60.0;
         double ns = 1000000000 / amountOfTicks;
@@ -109,6 +111,9 @@ public class Game extends Canvas implements Runnable
 
     private void tick()
     {
+        if (performReverse)
+            return;
+
         handler.tick();
         spawner.tick();
     }
@@ -133,6 +138,11 @@ public class Game extends Canvas implements Runnable
 
         g.dispose();
         bs.show();
+    }
+
+    public void setPerformReverse(boolean performReverse)
+    {
+        this.performReverse = performReverse;
     }
 
     public static void main(String[] args)

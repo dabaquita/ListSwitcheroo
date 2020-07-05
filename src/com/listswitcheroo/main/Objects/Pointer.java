@@ -1,6 +1,7 @@
 package com.listswitcheroo.main.Objects;
 
-import com.listswitcheroo.main.Game;
+// Denielle Abaquita
+// 7/3/20
 
 import javax.imageio.ImageIO;
 import java.awt.*;

@@ -1,16 +1,13 @@
 package com.listswitcheroo.main.Objects;
 
 // Denielle Abaquita
-// 6/8/20
+// 7/3/20
+
 // The actual linked list that will
 // move around the screen and such
 
 import com.listswitcheroo.main.Game;
-
 import java.awt.*;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class ListyList extends GameObject
 {
@@ -99,12 +96,14 @@ public class ListyList extends GameObject
     public void reverse()
     {
         Node temp = head, prev = null, next;
+        int pointerDelay = 1;
 
         // Reverses the linked list
         while (temp != null)
         {
             // Reverses the animation
-            temp.reverse();
+            // with a delay on the pointers
+            temp.reverse(pointerDelay++);
 
             next = temp.next;
             temp.next = prev;
@@ -137,6 +136,8 @@ public class ListyList extends GameObject
 
         while (temp != null)
         {
+            // If the node is a pointer, we can
+            // just render regularly and skip to next
             if (temp.getId().equals(ID.Pointer))
             {
                 temp.render(g);
@@ -144,6 +145,8 @@ public class ListyList extends GameObject
                 continue;
             }
 
+            // Set up the colors for the node
+            // depending on the size
             if (size == 3)
                 temp.setId(ID.MildList);
             else if (size >= 4)
