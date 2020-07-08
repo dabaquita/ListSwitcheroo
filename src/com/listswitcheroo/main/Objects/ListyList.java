@@ -75,7 +75,7 @@ public class ListyList extends GameObject
 
         // Handling edge cases when the node is spawned
         // outside of the game window
-        if (x > Game.WIDTH || x < 0 || y > Game.HEIGHT || y < 0)
+        if ((x > Game.WIDTH - 40) || x < 0 || (y > Game.HEIGHT - 64) || y < 0)
         {
             System.err.println("We have reached an edge case! Please fix it up in ListyList.java");
             return;
