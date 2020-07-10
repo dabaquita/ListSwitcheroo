@@ -6,6 +6,9 @@ package com.listswitcheroo.main.Bones;
 import com.listswitcheroo.main.Game;
 import com.listswitcheroo.main.Objects.ListyList;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -28,7 +31,7 @@ public class KeyInput extends KeyAdapter
         // Pauses the animation
         // and then it reverses the linked list
         // one by one.
-        if (key == KeyEvent.VK_SPACE && !spacePressed)
+        if (key == KeyEvent.VK_SPACE)
         {
             spacePressed = true;
             game.setPerformReverse(true);
@@ -40,16 +43,5 @@ public class KeyInput extends KeyAdapter
         // Exit out
         if (key == KeyEvent.VK_ESCAPE)
             System.exit(1);
-    }
-
-    public void keyReleased(KeyEvent e)
-    {
-        int key = e.getKeyChar();
-
-        if (key == KeyEvent.VK_SPACE)
-        {
-            spacePressed = false;
-            game.setPerformReverse(false);
-        }
     }
 }

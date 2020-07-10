@@ -140,6 +140,11 @@ public class Game extends Canvas implements Runnable
         bs.show();
     }
 
+    public boolean isPerformReverse()
+    {
+        return performReverse;
+    }
+
     public void setPerformReverse(boolean performReverse)
     {
         this.performReverse = performReverse;
