@@ -97,13 +97,8 @@ public class ListyList extends GameObject
     // Reverse the linked list!!
     public void reverse()
     {
-        if (reversing)
-            return;
-
         Node temp = head, prev = null, next;
         int pointerDelay = 1;
-        reversing = true;
-        Game.togglePerformReverse();
 
         // Reverses the linked list
         while (temp != null)
@@ -163,7 +158,7 @@ public class ListyList extends GameObject
             temp = temp.next;
         }
 
-        // TODO: There needs to be another Game.toggleReverse() statement somewhere
+        // TODO: There needs to be another Game.togglePerformReverse() statement somewhere
         // But this needs to occur AFTER we complete reversing AND after
         // rendering all of the nodes in the linked list
     }

@@ -31,12 +31,52 @@ public class KeyInput extends KeyAdapter {
         // one by one.
         if (key == KeyEvent.VK_SPACE)
         {
-            listyList.reverse();
+            new ReverseThread(listyList).start();
         }
 
         // Exit out
         if (key == KeyEvent.VK_ESCAPE)
             System.exit(1);
+    }
+
+    public void keyReleased(KeyEvent e)
+    {
+        int key = e.getKeyChar();
+
+        if (key == KeyEvent.VK_SPACE)
+        {
+            System.out.println("Space key was released");
+        }
+    }
+}
+
+class ReverseThread extends Thread
+{
+    private ListyList listyList;
+
+    ReverseThread(ListyList listyList)
+    {
+        this.listyList = listyList;
+    }
+
+    @Override
+    public void run()
+    {
+        Game.togglePerformReverse();
+        listyList.reverse();
+
+        try
+        {
+            // Arbitrary sleep value found through trial and error
+            // and optimized for the timing of the main thread in charge
+            // of rendering
+            this.sleep((int) (1000 * (listyList.getSize() / 1.15)));
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        Game.togglePerformReverse();
     }
 }
 
