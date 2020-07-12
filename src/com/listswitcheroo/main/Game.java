@@ -18,7 +18,7 @@ public class Game extends Canvas implements Runnable
 
     private Thread thread;
     private boolean running;
-    private boolean performReverse;     // pauses the game
+    private static boolean performReverse;     // pauses the game
 
     private Handler handler;
     private Spawner spawner;
@@ -145,9 +145,9 @@ public class Game extends Canvas implements Runnable
         return performReverse;
     }
 
-    public void setPerformReverse(boolean performReverse)
+    public static void togglePerformReverse()
     {
-        this.performReverse = performReverse;
+        performReverse = !performReverse;
     }
 
     public static void main(String[] args)

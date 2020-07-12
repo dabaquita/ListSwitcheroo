@@ -12,14 +12,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class KeyInput extends KeyAdapter
-{
+public class KeyInput extends KeyAdapter {
     private Handler handler;
     private Game game;
-    private boolean spacePressed;
 
-    public KeyInput(Handler handler, Game game)
-    {
+    public KeyInput(Handler handler, Game game) {
         this.handler = handler;
         this.game = game;
     }
@@ -27,17 +24,14 @@ public class KeyInput extends KeyAdapter
     public void keyPressed(KeyEvent e)
     {
         int key = e.getKeyChar();
+        ListyList listyList = (ListyList) handler.get("ListyList");
 
         // Pauses the animation
         // and then it reverses the linked list
         // one by one.
         if (key == KeyEvent.VK_SPACE)
         {
-            spacePressed = true;
-            game.setPerformReverse(true);
-
-            ListyList list = (ListyList) handler.get("ListyList");
-            list.reverse();
+            listyList.reverse();
         }
 
         // Exit out
@@ -45,3 +39,4 @@ public class KeyInput extends KeyAdapter
             System.exit(1);
     }
 }
+

@@ -16,6 +16,7 @@ public class ListyList extends GameObject
     // Note: size and maxSize refer to the number of nodes
     // NOT the total number of nodes and pointers
     private int size, maxSize;
+    private boolean reversing;
 
     public ListyList(float x, float y, ID id)
     {
@@ -25,6 +26,7 @@ public class ListyList extends GameObject
         head = tail = new Node(x, y, ID.HappyList);
         size = 1;
         maxSize = 5;
+        reversing = false;
     }
 
     public int getSize()
@@ -95,8 +97,13 @@ public class ListyList extends GameObject
     // Reverse the linked list!!
     public void reverse()
     {
+        if (reversing)
+            return;
+
         Node temp = head, prev = null, next;
         int pointerDelay = 1;
+        reversing = true;
+        Game.togglePerformReverse();
 
         // Reverses the linked list
         while (temp != null)
@@ -155,5 +162,9 @@ public class ListyList extends GameObject
             temp.render(g);
             temp = temp.next;
         }
+
+        // TODO: There needs to be another Game.toggleReverse() statement somewhere
+        // But this needs to occur AFTER we complete reversing AND after
+        // rendering all of the nodes in the linked list
     }
 }
