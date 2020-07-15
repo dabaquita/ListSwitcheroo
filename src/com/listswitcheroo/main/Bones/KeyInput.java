@@ -6,19 +6,17 @@ package com.listswitcheroo.main.Bones;
 import com.listswitcheroo.main.Game;
 import com.listswitcheroo.main.Objects.ListyList;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class KeyInput extends KeyAdapter {
+public class KeyInput extends KeyAdapter
+{
     private Handler handler;
-    private Game game;
+    private boolean isSpacePressed;
 
-    public KeyInput(Handler handler, Game game) {
+    public KeyInput(Handler handler)
+    {
         this.handler = handler;
-        this.game = game;
     }
 
     public void keyPressed(KeyEvent e)
@@ -29,8 +27,9 @@ public class KeyInput extends KeyAdapter {
         // Pauses the animation
         // and then it reverses the linked list
         // one by one.
-        if (key == KeyEvent.VK_SPACE)
+        if (key == KeyEvent.VK_SPACE && !isSpacePressed)
         {
+            isSpacePressed = true;
             new ReverseThread(listyList).start();
         }
 
@@ -45,7 +44,7 @@ public class KeyInput extends KeyAdapter {
 
         if (key == KeyEvent.VK_SPACE)
         {
-            System.out.println("Space key was released");
+            isSpacePressed = false;
         }
     }
 }
@@ -63,6 +62,7 @@ class ReverseThread extends Thread
     public void run()
     {
         Game.togglePerformReverse();
+        listyList.isReversing(true);
         listyList.reverse();
 
         try
@@ -70,12 +70,13 @@ class ReverseThread extends Thread
             // Arbitrary sleep value found through trial and error
             // and optimized for the timing of the main thread in charge
             // of rendering
-            this.sleep((int) (1000 * (listyList.getSize() / 1.15)));
+            this.sleep((1300 * (listyList.getSize())));
         } catch (Exception e)
         {
             e.printStackTrace();
         }
 
+        listyList.isReversing(false);
         Game.togglePerformReverse();
     }
 }

@@ -38,7 +38,7 @@ public class Game extends Canvas implements Runnable
         new Window(WIDTH, HEIGHT, "List Switcheroo", this);
 
         handler = new Handler();
-        this.addKeyListener(new KeyInput(handler, this));
+        this.addKeyListener(new KeyInput(handler));
 
         // Spawner
         spawner = new Spawner(handler);

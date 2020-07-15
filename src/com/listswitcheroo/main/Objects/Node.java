@@ -51,32 +51,30 @@ public class Node extends GameObject
     }
 
     // Reverses the movement of the node
-    public void reverse(int pointerDelay)
+    public void reverse(int animationDelay)
     {
         // Check if the node we are at already hits
         // a wall and change back velocities if true
         clamp();
-
-        // We need to delay the reversal of the
-        // pointer to show a steady reversal overall
-        if (id.toString().contains("Pointer"))
-        {
-            Timer timer = new Timer((750 * pointerDelay) / 2, new ActionListener()
-            {
-                @Override
-                public void actionPerformed(ActionEvent arg0)
-                {
-                    velX *= -1;
-                    velY *= -1;
-                }
-            });
-            timer.setRepeats(false);
-            timer.start();
-            return;
-        }
-
         velX *= -1;
         velY *= -1;
+    }
+
+    public void idChange(ID id, int animationDelay)
+    {
+        if (this.getClass().toString().contains("Pointer"))
+            return;
+
+        Timer timer = new Timer((int) ((750 * animationDelay) / 1.5), new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent arg0)
+            {
+                setId(id);
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
     }
 
     public static int getRADIUS()
@@ -84,7 +82,7 @@ public class Node extends GameObject
         return RADIUS;
     }
 
-    private void clamp()
+    protected void clamp()
     {
         if (y <= 0 || y >= Game.HEIGHT - 64)
             velY *= -1;
@@ -111,17 +109,16 @@ public class Node extends GameObject
         if (getId().equals(ID.HappyList))
         {
             g.setColor(Color.GREEN);
-            g.fillOval((int) x, (int) y, graphicSize, graphicSize);
         }
         else if (getId().equals(ID.MildList))
         {
             g.setColor(Color.ORANGE);
-            g.fillOval((int) x, (int) y, graphicSize, graphicSize);
         }
         else if (getId().equals(ID.LonelyList))
         {
             g.setColor(Color.RED);
-            g.fillOval((int) x, (int) y, graphicSize, graphicSize);
         }
+
+        g.fillOval((int) x, (int) y, graphicSize, graphicSize);
     }
 }

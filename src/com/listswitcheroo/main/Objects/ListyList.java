@@ -12,11 +12,11 @@ import java.awt.*;
 public class ListyList extends GameObject
 {
     private Node head, tail;
+    private boolean isReversing;
 
     // Note: size and maxSize refer to the number of nodes
     // NOT the total number of nodes and pointers
     private int size, maxSize;
-    private boolean reversing;
 
     public ListyList(float x, float y, ID id)
     {
@@ -26,7 +26,6 @@ public class ListyList extends GameObject
         head = tail = new Node(x, y, ID.HappyList);
         size = 1;
         maxSize = 5;
-        reversing = false;
     }
 
     public int getSize()
@@ -98,25 +97,41 @@ public class ListyList extends GameObject
     public void reverse()
     {
         Node temp = head, prev = null, next;
-        int pointerDelay = 1;
+        int animationDelay = 1;
 
         // Reverses the linked list
         while (temp != null)
         {
+            if (prev != null)
+            {
+                prev.idChange(ID.HappyList, (int) (animationDelay * 1.1));
+            }
+
             // Reverses the animation
-            // with a delay on the pointers
-            temp.reverse(pointerDelay++);
+            // with a delay on the animation
+            temp.reverse(animationDelay);
+            temp.idChange(ID.MildList, (int) (animationDelay * 0.9));
 
             next = temp.next;
             temp.next = prev;
             prev = temp;
             temp = next;
+            animationDelay++;
         }
+
+        prev.idChange(ID.HappyList, (int) (animationDelay));
 
         // Finally switch the pointers
         temp = tail;
         tail = head;
         head = temp;
+
+        //reversing = false;
+    }
+
+    public void isReversing(boolean isReversing)
+    {
+        this.isReversing = isReversing;
     }
 
     @Override
@@ -149,17 +164,16 @@ public class ListyList extends GameObject
 
             // Set up the colors for the node
             // depending on the size
-            if (size == 3)
-                temp.setId(ID.MildList);
-            else if (size >= 4)
-                temp.setId(ID.LonelyList);
+            if (!isReversing)
+            {
+                if (size == 3)
+                    temp.setId(ID.MildList);
+                else if (size >= 4)
+                    temp.setId(ID.LonelyList);
+            }
 
             temp.render(g);
             temp = temp.next;
         }
-
-        // TODO: There needs to be another Game.togglePerformReverse() statement somewhere
-        // But this needs to occur AFTER we complete reversing AND after
-        // rendering all of the nodes in the linked list
     }
 }
