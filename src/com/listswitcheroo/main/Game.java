@@ -22,26 +22,31 @@ public class Game extends Canvas implements Runnable
 
     private Handler handler;
     private Spawner spawner;
+    private Menu menu;
 
     public enum STATE
     {
         Menu,
-        Game,
-        End
+        Help,
+        Game
     }
 
-    public STATE gameState = STATE.Game;
+    public STATE gameState = STATE.Menu;
 
     Game()
     {
         // Window
         new Window(WIDTH, HEIGHT, "List Switcheroo", this);
 
+        // Handler
         handler = new Handler();
-        this.addKeyListener(new KeyInput(handler));
 
-        // Spawner
-        spawner = new Spawner(handler);
+        // Menu
+        menu = new Menu(this, handler);
+
+        // Listeners for input
+        this.addKeyListener(new KeyInput(handler));
+        this.addMouseListener(menu);
     }
 
     public synchronized void start()
@@ -111,11 +116,15 @@ public class Game extends Canvas implements Runnable
 
     private void tick()
     {
-        if (performReverse)
-            return;
+        if (gameState == STATE.Game)
+        {
+            if (performReverse)
+                return;
 
-        handler.tick();
-        spawner.tick();
+            handler.tick();
+
+            spawner.tick();
+        }
     }
 
     private void render()
@@ -136,6 +145,9 @@ public class Game extends Canvas implements Runnable
 
         handler.render(g);
 
+        if (gameState == STATE.Menu || gameState == STATE.Help)
+            menu.render(g);
+
         g.dispose();
         bs.show();
     }
@@ -148,6 +160,11 @@ public class Game extends Canvas implements Runnable
     public static void togglePerformReverse()
     {
         performReverse = !performReverse;
+    }
+
+    public void initSpawner()
+    {
+        spawner = new Spawner(handler);
     }
 
     public static void main(String[] args)

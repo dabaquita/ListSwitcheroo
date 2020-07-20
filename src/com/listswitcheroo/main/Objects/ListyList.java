@@ -125,8 +125,6 @@ public class ListyList extends GameObject
         temp = tail;
         tail = head;
         head = temp;
-
-        //reversing = false;
     }
 
     public void isReversing(boolean isReversing)
