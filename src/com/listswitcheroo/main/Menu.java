@@ -1,22 +1,22 @@
 package com.listswitcheroo.main;// Denielle Abaquita
 // 7/20/20
 
-import com.listswitcheroo.main.Bones.Handler;
-import com.listswitcheroo.main.Game;
-
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Random;
 
 public class Menu extends MouseAdapter
 {
     private Game game;
-    private Handler handler;
+    private int changeColorTimer;
+    private Color titleColor;
 
-    public Menu (Game game, Handler handler)
+    public Menu (Game game)
     {
         this.game = game;
-        this.handler = handler;
+        changeColorTimer = 0;
+        titleColor = Color.ORANGE;
     }
 
     public void mousePressed(MouseEvent e)
@@ -69,6 +69,15 @@ public class Menu extends MouseAdapter
 
     public void render(Graphics g)
     {
+        changeColorTimer++;
+        Random r = new Random();
+
+        if (changeColorTimer == 250)
+        {
+            titleColor = new Color(r.nextInt(255), r.nextInt(255), r.nextInt(255), 255);
+            changeColorTimer = 0;
+        }
+
         Font titleFont = new Font("arial", 1, 50);
         Font buttonFont = new Font("arial", 1, 30);
         Font descriptionFont = new Font("arial", 1, 12);
@@ -76,7 +85,7 @@ public class Menu extends MouseAdapter
         if (game.gameState == Game.STATE.Menu)
         {
             g.setFont(titleFont);
-            g.setColor(Color.white);
+            g.setColor(titleColor);
             g.drawString("ListSwitcheroo", 140, 100);
 
             // Play Button
@@ -107,7 +116,7 @@ public class Menu extends MouseAdapter
         {
             // Help Label at Top
             g.setFont(titleFont);
-            g.setColor(Color.white);
+            g.setColor(titleColor);
             g.drawString("What is this?", 150, 100);
 
             // Description
