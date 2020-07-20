@@ -28,12 +28,12 @@ public class Handler
 
     public void add(GameObject gameObject)
     {
-        this.objects.add(gameObject);
+        objects.add(gameObject);
     }
 
     public void remove(GameObject gameObject)
     {
-        this.objects.remove(gameObject);
+        objects.remove(gameObject);
     }
 
     public GameObject get(String className)

@@ -33,20 +33,20 @@ public class Game extends Canvas implements Runnable
 
     public STATE gameState = STATE.Menu;
 
-    Game()
+    public Game()
     {
-        // Window
-        new Window(WIDTH, HEIGHT, "List Switcheroo", this);
-
         // Handler
         handler = new Handler();
 
         // Menu
-        menu = new Menu(this);
+        menu = new Menu(this, handler);
 
         // Listeners for input
         this.addKeyListener(new KeyInput(handler));
         this.addMouseListener(menu);
+
+        // Window
+        new Window(WIDTH, HEIGHT, "List Switcheroo", this);
     }
 
     public synchronized void start()
@@ -121,10 +121,10 @@ public class Game extends Canvas implements Runnable
             if (performReverse)
                 return;
 
-            handler.tick();
-
             spawner.tick();
         }
+
+        handler.tick();
     }
 
     private void render()
@@ -150,11 +150,6 @@ public class Game extends Canvas implements Runnable
 
         g.dispose();
         bs.show();
-    }
-
-    public boolean isPerformReverse()
-    {
-        return performReverse;
     }
 
     public static void togglePerformReverse()

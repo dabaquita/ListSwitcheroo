@@ -11,13 +11,11 @@ import java.util.Random;
 public class Spawner
 {
     private Handler handler;
-    private Random rand;
     private int timeKeep;
 
     public Spawner(Handler handler)
     {
         this.handler = handler;
-        rand = new Random();
         timeKeep = 0;
 
         // Initial spawn of the first linked list
