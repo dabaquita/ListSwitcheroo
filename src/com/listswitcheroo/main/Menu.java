@@ -69,6 +69,7 @@ public class Menu extends MouseAdapter
         // Help page button presses
         else if (game.gameState == Game.STATE.Help)
         {
+            // Back button
             if (mouseOver(mx, my, 210, 350, 200, 64))
             {
                 game.gameState = Game.STATE.Menu;

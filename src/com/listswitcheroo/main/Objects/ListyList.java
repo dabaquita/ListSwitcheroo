@@ -78,7 +78,6 @@ public class ListyList extends GameObject
         // outside of the game window
         if ((x > Game.WIDTH - 40) || x < 0 || (y > Game.HEIGHT - 64) || y < 0)
         {
-            System.err.println("We have reached an edge case! Please fix it up in ListyList.java");
             return;
         }
 
@@ -127,9 +126,14 @@ public class ListyList extends GameObject
         head = temp;
     }
 
-    public void isReversing(boolean isReversing)
+    public void setIsReversing(boolean isReversing)
     {
         this.isReversing = isReversing;
+    }
+
+    public boolean isReversing()
+    {
+        return isReversing;
     }
 
     @Override

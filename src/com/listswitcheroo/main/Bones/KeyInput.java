@@ -24,28 +24,15 @@ public class KeyInput extends KeyAdapter
         int key = e.getKeyChar();
         ListyList listyList = (ListyList) handler.get("ListyList");
 
-        // Pauses the animation
-        // and then it reverses the linked list
-        // one by one.
-        if (key == KeyEvent.VK_SPACE && !isSpacePressed)
+        // Let's start reversing!
+        if (key == KeyEvent.VK_SPACE && !listyList.isReversing())
         {
-            isSpacePressed = true;
             new ReverseThread(listyList).start();
         }
 
         // Exit out
         if (key == KeyEvent.VK_ESCAPE)
             System.exit(1);
-    }
-
-    public void keyReleased(KeyEvent e)
-    {
-        int key = e.getKeyChar();
-
-        if (key == KeyEvent.VK_SPACE)
-        {
-            isSpacePressed = false;
-        }
     }
 }
 
@@ -62,7 +49,7 @@ class ReverseThread extends Thread
     public void run()
     {
         Game.togglePerformReverse();
-        listyList.isReversing(true);
+        listyList.setIsReversing(true);
         listyList.reverse();
 
         try
@@ -76,7 +63,8 @@ class ReverseThread extends Thread
             e.printStackTrace();
         }
 
-        listyList.isReversing(false);
+
+        listyList.setIsReversing(false);
         Game.togglePerformReverse();
     }
 }
